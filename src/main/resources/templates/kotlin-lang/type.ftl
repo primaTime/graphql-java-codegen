@@ -163,7 +163,21 @@ open class ${className}()<#if implements?has_content> : <#list implements as int
 
     <#if fields?has_content>
     <#list fields as field>
-    <#if field.javaDoc?has_content>
+        <#if field.javaDoc?has_content>
+            /**
+            <#list field.javaDoc as javaDocLine>
+                * ${javaDocLine}
+            </#list>
+            */
+        </#if>
+        <#if field.deprecated?has_content>
+            @${field.deprecated.annotation}(message = "${field.deprecated.reason}")
+        </#if>
+        fun get${field.name?replace("`", "")?cap_first}(): ${field.type} {
+            return this.${field.name}
+        }
+
+        <#if field.javaDoc?has_content>
         /**
         <#list field.javaDoc as javaDocLine>
          * ${javaDocLine}
