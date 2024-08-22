@@ -145,16 +145,16 @@ open class ${className}()<#if implements?has_content> : <#list implements as int
     <#if fields?has_content>
         <#list fields as field>
     <#if field.defaultValue?has_content>
-        private var ${field.name}: ${field.type} = ${field.defaultValue}
+        public var ${field.name}: ${field.type} = ${field.defaultValue}
     <#else>
     <#if field.type?ends_with("?")>
-        private var ${field.name}: ${field.type} = null
+        public var ${field.name}: ${field.type} = null
     <#else>
     <#if MapperUtil.isKotlinPrimitive(field.type)>
         <#assign default = MapperUtil.defaultValueKotlinPrimitive(field.type)/>
-        private var ${field.name}: ${field.type} = ${default}
+        public var ${field.name}: ${field.type} = ${default}
     <#else>
-        private lateinit var ${field.name}: ${field.type}
+        public lateinit var ${field.name}: ${field.type}
     </#if>
     </#if>
     </#if>
